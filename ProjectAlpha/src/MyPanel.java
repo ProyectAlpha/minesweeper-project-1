@@ -40,8 +40,13 @@ public class MyPanel extends JPanel {
 			}
 		}
 		for (int i = 0; i < 10; i++) { //Mine generator
-			int randomX = generator.nextInt(9);
-			int randomY = generator.nextInt(9);
+			int randomX;
+			int randomY;
+			do{
+				randomX = generator.nextInt(9);
+				randomY = generator.nextInt(9);
+			}while(colorArray[randomX][randomY].equals(Color.BLACK));
+			
 			colorArray[randomX][randomY] = Color.BLACK;
 		}
 	}
@@ -77,7 +82,7 @@ public class MyPanel extends JPanel {
 		//Paint cell colors
 		for (int x = 0; x < TOTAL_COLUMNS; x++) {
 			for (int y = 0; y < TOTAL_ROWS; y++) {
-					Color c = Color.WHITE; //colorArray[x][y]
+					Color c = colorArray[x][y]; //colorArray[x][y]
 					g.setColor(c);
 					g.fillRect(x1 + GRID_X + (x * (INNER_CELL_SIZE + 1)) + 1, y1 + GRID_Y + (y * (INNER_CELL_SIZE + 1)) + 1, INNER_CELL_SIZE, INNER_CELL_SIZE);
 			}
