@@ -16,7 +16,12 @@ public class MyPanel extends JPanel {
 	public int y = -1;
 	public int mouseDownGridX = 0;
 	public int mouseDownGridY = 0;
-	public Color[][] colorArray = new Color[TOTAL_COLUMNS][TOTAL_ROWS];
+	public Color[][] colorArray = new Color[TOTAL_COLUMNS][TOTAL_ROWS]; //array to control colors
+	public int[][] mineArray = new int[TOTAL_COLUMNS][TOTAL_ROWS]; //array to know where are the mines
+	public int[][] mineDetectorArray = new int[TOTAL_COLUMNS][TOTAL_ROWS]; //array to detect nearby mines
+	public int redFlagCount = 10; 
+	public int coveredCount = TOTAL_COLUMNS * TOTAL_ROWS - 10; //the amount of panels that the player has to uncover
+	public boolean mineFound = false; //it is use to know when a mine exploded
 	public MyPanel() {   //This is the constructor... this code runs first to initialize
 		Random generator = new Random();
 		if (INNER_CELL_SIZE + (new Random()).nextInt(1) < 1) {	//Use of "random" to prevent unwanted Eclipse warning
@@ -28,15 +33,11 @@ public class MyPanel extends JPanel {
 		if (TOTAL_ROWS + (new Random()).nextInt(1) < 3) {	//Use of "random" to prevent unwanted Eclipse warning
 			throw new RuntimeException("TOTAL_ROWS must be at least 3!");
 		}
-//		for (int x = 0; x < TOTAL_COLUMNS; x++) {   //Top row
-//			colorArray[x][0] = Color.WHITE;
-//		}
-//		for (int y = 0; y < TOTAL_ROWS; y++) {   //Left column
-//			colorArray[0][y] = Color.WHITE;
-//		}
-		for (int x = 0; x < TOTAL_COLUMNS; x++) {   //The rest of the grid
+		for (int x = 0; x < TOTAL_COLUMNS; x++) {   
 			for (int y = 0; y < TOTAL_ROWS; y++) {
 				colorArray[x][y] = Color.WHITE;
+				mineArray[x][y] = 0;
+				mineDetectorArray[x][y] = 0;
 			}
 		}
 		for (int i = 0; i < 10; i++) { //Mine generator
@@ -45,10 +46,16 @@ public class MyPanel extends JPanel {
 			do{
 				randomX = generator.nextInt(9);
 				randomY = generator.nextInt(9);
-			}while(colorArray[randomX][randomY].equals(Color.BLACK));
-			
-			colorArray[randomX][randomY] = Color.BLACK;
+			}while(mineArray[randomX][randomY] == 1);
+			mineArray[randomX][randomY] = 1;
+//			colorArray[randomX][randomY] = Color.BLACK; //DON'T ERASE: is for debugging purpose, just comment the line
 		}
+//		for (int x = 0; x < TOTAL_COLUMNS; x++) {   //Trying gain the amount of nearby mines of each label (still needs work)
+//			for (int y = 0; y < TOTAL_ROWS; y++) {
+//				if (x == 0 && y == 0)
+//					mineDetectorArray[x][y]++;
+//			}
+//		}
 	}
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -82,7 +89,7 @@ public class MyPanel extends JPanel {
 		//Paint cell colors
 		for (int x = 0; x < TOTAL_COLUMNS; x++) {
 			for (int y = 0; y < TOTAL_ROWS; y++) {
-					Color c = colorArray[x][y]; //colorArray[x][y]
+					Color c = colorArray[x][y];
 					g.setColor(c);
 					g.fillRect(x1 + GRID_X + (x * (INNER_CELL_SIZE + 1)) + 1, y1 + GRID_Y + (y * (INNER_CELL_SIZE + 1)) + 1, INNER_CELL_SIZE, INNER_CELL_SIZE);
 			}

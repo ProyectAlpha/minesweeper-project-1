@@ -93,12 +93,23 @@ public class MyMouseAdapter extends MouseAdapter {
 					if ((myPanel.mouseDownGridX != gridX) || (myPanel.mouseDownGridY != gridY)) {
 						//Released the mouse button on a different cell where it was pressed
 						//Do nothing
-					} else {
-						if (myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY].equals(Color.BLACK) || myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY].equals(Color.RED)){
+					}else {
+						if (myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY].equals(Color.RED)){
 						//Released the mouse button on the same cell where it was pressed
 						//do nothing	
-						}else{
-							myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = Color.GRAY;
+						}else if (!myPanel.mineFound){ //asking if a mine exploded
+							if(myPanel.mineArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] == 1){ 
+								for (int col = 0; col < 9; col++) {   //a mine exploded: showing the rest of mines
+									for (int row = 0; row < 9; row++) {
+										if(myPanel.mineArray[col][row] == 1)
+											myPanel.colorArray[col][row] = Color.BLACK;
+									}
+								}
+								myPanel.mineFound = true;
+							}else if(myPanel.coveredCount > 0){
+									myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = Color.GRAY;
+									myPanel.coveredCount--; // the amount of covered safe panels to uncover
+							}
 							myPanel.repaint();
 						}
 					}
@@ -138,17 +149,18 @@ public class MyMouseAdapter extends MouseAdapter {
 					if ((myPanel.mouseDownGridX != gridX) || (myPanel.mouseDownGridY != gridY)) {
 						//Released the mouse button on a different cell where it was pressed
 						//Do nothing
-					} else {
-						if(myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY].equals(Color.GRAY) || myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY].equals(Color.BLACK)){
+					} else if (!myPanel.mineFound) { //asking if a mine exploded
+						if(myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY].equals(Color.GRAY)){
 						//Released the mouse button on the same cell where it was pressed
 							//do nothing
-							} else if(myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY].equals(Color.RED)){
+						}else if(myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY].equals(Color.RED)){
 								myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = Color.WHITE;
-								myPanel.repaint();
-							}else{
+								myPanel.redFlagCount++;
+						}else if(myPanel.redFlagCount > 0){ 
 								myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = Color.RED;
-								myPanel.repaint();
+								myPanel.redFlagCount--;
 							}
+						myPanel.repaint();
 						}
 					}
 				}
