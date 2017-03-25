@@ -1,4 +1,5 @@
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 
 public class Main {
 	public static void main(String[] args) {
@@ -9,6 +10,9 @@ public class Main {
 
 		MyPanel myPanel = new MyPanel();
 		myFrame.add(myPanel);
+		
+		JLabel label = new JLabel("Click at your own risk...");
+		myPanel.add(label);
 
 		MyMouseAdapter myMouseAdapter = new MyMouseAdapter();
 		myFrame.addMouseListener(myMouseAdapter);

@@ -6,9 +6,10 @@ import java.awt.event.MouseEvent;
 import java.util.Random;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 
 public class MyMouseAdapter extends MouseAdapter {
-	private Random generator = new Random();
+//	private Random generator = new Random();
 	public void mousePressed(MouseEvent e) {
 		switch (e.getButton()) {
 		case 1:		//Left mouse button
@@ -21,6 +22,8 @@ public class MyMouseAdapter extends MouseAdapter {
 			}
 			JFrame myFrame = (JFrame) c;
 			MyPanel myPanel = (MyPanel) myFrame.getContentPane().getComponent(0);
+			JLabel myLabel = new JLabel();
+			myPanel.add(myLabel);
 			Insets myInsets = myFrame.getInsets();
 			int x1 = myInsets.left;
 			int y1 = myInsets.top;
@@ -43,6 +46,8 @@ public class MyMouseAdapter extends MouseAdapter {
 			}
 			myFrame = (JFrame) c;
 			myPanel = (MyPanel) myFrame.getContentPane().getComponent(0);
+			myLabel = new JLabel();
+			myPanel.add(myLabel);
 			myInsets = myFrame.getInsets();
 			x1 = myInsets.left;
 			y1 = myInsets.top;
@@ -72,6 +77,8 @@ public class MyMouseAdapter extends MouseAdapter {
 			}
 			JFrame myFrame = (JFrame)c;
 			MyPanel myPanel = (MyPanel) myFrame.getContentPane().getComponent(0);  //Can also loop among components to find MyPanel
+			JLabel myLabel = new JLabel();
+			myPanel.add(myLabel);
 			Insets myInsets = myFrame.getInsets();
 			int x1 = myInsets.left;
 			int y1 = myInsets.top;
@@ -94,13 +101,13 @@ public class MyMouseAdapter extends MouseAdapter {
 						//Released the mouse button on a different cell where it was pressed
 						//Do nothing
 					}else {
-						if (myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY].equals(Color.RED)){
+						if (myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY].equals(Color.RED) || myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY].equals(Color.GRAY)){
 						//Released the mouse button on the same cell where it was pressed
 						//do nothing	
-						}else if (!myPanel.mineFound){ //asking if a mine exploded
+						}else if (!myPanel.mineFound){ //asking if a mine exploded or wins
 							if(myPanel.mineArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] == 1){ 
-								for (int col = 0; col < 9; col++) {   //a mine exploded: showing the rest of mines
-									for (int row = 0; row < 9; row++) {
+								for (int col = 0; col < MyPanel.getTotalColumns(); col++) {   //a mine exploded: showing the rest of mines
+									for (int row = 0; row < MyPanel.getTotalRows(); row++) {
 										if(myPanel.mineArray[col][row] == 1)
 											myPanel.colorArray[col][row] = Color.BLACK;
 									}
@@ -116,8 +123,8 @@ public class MyMouseAdapter extends MouseAdapter {
 										if (myPanel.mineArray[col][row] == 1)
 											myPanel.colorArray[col][row] = Color.RED;
 									}
-								myPanel.redFlagCount = 0;
 								}
+								myPanel.redFlagCount = 0;
 							}
 							myPanel.repaint();
 						}
@@ -158,14 +165,14 @@ public class MyMouseAdapter extends MouseAdapter {
 					if ((myPanel.mouseDownGridX != gridX) || (myPanel.mouseDownGridY != gridY)) {
 						//Released the mouse button on a different cell where it was pressed
 						//Do nothing
-					} else if (!myPanel.mineFound) { //asking if a mine exploded
+					} else if (!myPanel.mineFound && myPanel.redFlagCount > 0) { //asking if a mine exploded
 						if(myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY].equals(Color.GRAY)){
 						//Released the mouse button on the same cell where it was pressed
 							//do nothing
 						}else if(myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY].equals(Color.RED)){
 								myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = Color.WHITE;
 								myPanel.redFlagCount++;
-						}else if(myPanel.redFlagCount > 0){ 
+						}else{ 
 								myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = Color.RED;
 								myPanel.redFlagCount--;
 							}
