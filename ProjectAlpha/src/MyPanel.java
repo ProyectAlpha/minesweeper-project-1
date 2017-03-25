@@ -51,13 +51,96 @@ public class MyPanel extends JPanel {
 			mineArray[randomX][randomY] = 1;
 //			colorArray[randomX][randomY] = Color.BLACK; //DON'T ERASE: it is for debugging purpose, just comment the line
 		}
-//		for (int x = 0; x < TOTAL_COLUMNS; x++) {   //Trying gain the amount of nearby mines of each label (still needs work)
-//			for (int y = 0; y < TOTAL_ROWS; y++) {
-//				if (x == 0 && y == 0)
-//					mineDetectorArray[x][y]++;
-//				
-//			}
-//		}
+		for (int x = 0; x < TOTAL_COLUMNS; x++) {   //Trying gain the amount of nearby mines of each label (still needs work)
+			for (int y = 0; y < TOTAL_ROWS; y++) {
+				if (mineArray[x][y] == 0){
+				int counter = 0;
+				if (x == 0 && y == 0) {
+					for (int k = x; k <= x+1; k++) {
+						for (int j = y; j <= y+1; j++) {
+							if (mineArray[k][j] == 1){
+							counter++;
+							}
+						}
+					}
+				} 
+				else if(x == 8 && y ==0) {
+					for (int k = x-1; k <= x; k++) {
+						for (int j = y; j <= y+1; j++) {
+							if (mineArray[k][j] == 1){
+							counter++;
+							}
+						}
+					}
+				}
+				else if (x == 0 && y == 8) {
+					for (int k = x; k <= x+1; k++) {
+						for (int j = y-1; j <= y; j++) {
+							if (mineArray[k][j] == 1){
+								counter++;
+							}
+						}
+					}
+				}
+				else if (x == 8 && y == 8) {
+					for (int k = x-1; k <= x; k++) {
+						for (int j = y-1; j <= y; j++) {
+							if (mineArray[k][j] == 1){
+							counter++;
+							}
+						}
+					}
+				}
+				else if (x == 0) {
+					for (int k = x; k <= x+1; k++) {
+						for (int j = y-1; j <= y+1; j++) {
+							if (mineArray[k][j] == 1){
+							counter++;
+							}
+						}
+					}
+				}
+				else if (x == 8) {
+					for (int k = x-1; k <= x; k++) {
+						for (int j = y-1; j <= y+1; j++) {
+							if (mineArray[k][j] == 1){
+							counter++;
+							}
+						}
+					}
+				}
+					else if (y == 0) {
+						for (int k = x-1; k <= x+1; k++) {
+							for (int j = y; j <= y+1; j++) {
+								if (mineArray[k][j] == 1){
+								counter++;
+								}
+							}
+						}
+					}
+					else if (y == 8) {
+						for (int k = x-1; k <= x+1; k++) {
+							for (int j = y-1; j <= y; j++) {
+								if (mineArray[k][j] == 1){
+								counter++;
+								}
+							}
+						}
+					}
+					else {
+						for (int k = x-1; k <= x+1; k++) {
+							for (int j = y-1; j <= y+1; j++) {
+								if (mineArray[k][j] == 1){
+								counter++;
+								}
+							}
+						}
+					}
+				mineDetectorArray[x][y] = counter;
+				System.out.println(mineDetectorArray[x][y]);
+			} 
+		}
+	}
 	}
 	public static int getTotalColumns() {
 		return TOTAL_COLUMNS;
