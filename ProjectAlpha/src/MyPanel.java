@@ -137,7 +137,6 @@ public class MyPanel extends JPanel {
 						}
 					}
 				mineDetectorArray[x][y] = counter;
-				System.out.println(mineDetectorArray[x][y]);
 			} 
 		}
 	}
