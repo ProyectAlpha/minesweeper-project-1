@@ -106,7 +106,7 @@ public class MyMouseAdapter extends MouseAdapter {
 									}
 								}
 								myPanel.mineFound = true;
-							}else if(myPanel.coveredCount > 0 && myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY].equals(Color.WHITE)){
+							}else if(myPanel.coveredCount > 0){
 									myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = Color.GRAY;
 									myPanel.coveredCount--; // the amount of covered safe panels to uncover
 							}else{
