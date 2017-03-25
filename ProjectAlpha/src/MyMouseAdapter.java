@@ -106,9 +106,18 @@ public class MyMouseAdapter extends MouseAdapter {
 									}
 								}
 								myPanel.mineFound = true;
-							}else if(myPanel.coveredCount > 0){
+							}else if(myPanel.coveredCount > 0 && myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY].equals(Color.WHITE)){
 									myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = Color.GRAY;
 									myPanel.coveredCount--; // the amount of covered safe panels to uncover
+							}else{
+								myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = Color.GRAY;
+								for (int col = 0; col < MyPanel.getTotalColumns(); col++) {   
+									for (int row = 0; row < MyPanel.getTotalRows(); row++) {
+										if (myPanel.mineArray[col][row] == 1)
+											myPanel.colorArray[col][row] = Color.RED;
+									}
+								myPanel.redFlagCount = 0;
+								}
 							}
 							myPanel.repaint();
 						}

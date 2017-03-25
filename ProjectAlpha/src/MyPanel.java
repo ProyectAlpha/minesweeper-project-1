@@ -11,7 +11,8 @@ public class MyPanel extends JPanel {
 	private static final int GRID_Y = 25;
 	private static final int INNER_CELL_SIZE = 29;
 	private static final int TOTAL_COLUMNS = 9;
-	private static final int TOTAL_ROWS = 9;   //Last row has only one cell
+	private static final int TOTAL_ROWS = 9;   
+	private static final int TOTAL_MINES = 10;
 	public int x = -1;
 	public int y = -1;
 	public int mouseDownGridX = 0;
@@ -19,8 +20,8 @@ public class MyPanel extends JPanel {
 	public Color[][] colorArray = new Color[TOTAL_COLUMNS][TOTAL_ROWS]; //array to control colors
 	public int[][] mineArray = new int[TOTAL_COLUMNS][TOTAL_ROWS]; //array to know where are the mines
 	public int[][] mineDetectorArray = new int[TOTAL_COLUMNS][TOTAL_ROWS]; //array to detect nearby mines
-	public int redFlagCount = 10; 
-	public int coveredCount = TOTAL_COLUMNS * TOTAL_ROWS - 10; //the amount of panels that the player has to uncover
+	public int redFlagCount = TOTAL_MINES; 
+	public int coveredCount = TOTAL_COLUMNS * TOTAL_ROWS - TOTAL_MINES - 1; //the amount of panels that the player has to uncover
 	public boolean mineFound = false; //it is use to know when a mine exploded
 	public MyPanel() {   //This is the constructor... this code runs first to initialize
 		Random generator = new Random();
@@ -40,7 +41,7 @@ public class MyPanel extends JPanel {
 				mineDetectorArray[x][y] = 0;
 			}
 		}
-		for (int i = 0; i < 10; i++) { //Mine generator
+		for (int i = 0; i < TOTAL_MINES; i++) { //Mine generator
 			int randomX;
 			int randomY;
 			do{
@@ -48,14 +49,24 @@ public class MyPanel extends JPanel {
 				randomY = generator.nextInt(9);
 			}while(mineArray[randomX][randomY] == 1);
 			mineArray[randomX][randomY] = 1;
-//			colorArray[randomX][randomY] = Color.BLACK; //DON'T ERASE: is for debugging purpose, just comment the line
+//			colorArray[randomX][randomY] = Color.BLACK; //DON'T ERASE: it is for debugging purpose, just comment the line
 		}
 //		for (int x = 0; x < TOTAL_COLUMNS; x++) {   //Trying gain the amount of nearby mines of each label (still needs work)
 //			for (int y = 0; y < TOTAL_ROWS; y++) {
 //				if (x == 0 && y == 0)
 //					mineDetectorArray[x][y]++;
+//				
 //			}
 //		}
+	}
+	public static int getTotalColumns() {
+		return TOTAL_COLUMNS;
+	}
+	public static int getTotalRows() {
+		return TOTAL_ROWS;
+	}
+	public static int getTotalMines() {
+		return TOTAL_MINES;
 	}
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
