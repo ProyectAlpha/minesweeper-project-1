@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Insets;
+import java.util.ArrayList;
 import java.util.Random;
 
 import javax.swing.JPanel;
@@ -23,6 +24,8 @@ public class MyPanel extends JPanel {
 	public int redFlagCount = TOTAL_MINES; 
 	public int coveredCount = TOTAL_COLUMNS * TOTAL_ROWS - TOTAL_MINES - 1; //the amount of panels that the player has to uncover
 	public boolean mineFound = false; //it is use to know when a mine exploded
+	public ArrayList<Integer>  zerosCountlistX = new ArrayList<Integer>(coveredCount);
+	public ArrayList<Integer>  zerosCountlistY = new ArrayList<Integer>(coveredCount);
 	public MyPanel() {   //This is the constructor... this code runs first to initialize
 		Random generator = new Random();
 		if (INNER_CELL_SIZE + (new Random()).nextInt(1) < 1) {	//Use of "random" to prevent unwanted Eclipse warning
@@ -49,7 +52,7 @@ public class MyPanel extends JPanel {
 				randomY = generator.nextInt(9);
 			}while(mineArray[randomX][randomY] == 1);
 			mineArray[randomX][randomY] = 1;
-//			colorArray[randomX][randomY] = Color.BLACK; //DON'T ERASE: it is for debugging purpose, just comment the line
+			colorArray[randomX][randomY] = Color.BLACK; //DON'T ERASE: it is for debugging purpose, just comment the line
 		}
 		for (int x = 0; x < TOTAL_COLUMNS; x++) {   //gaining the amount of nearby mines of each label
 			for (int y = 0; y < TOTAL_ROWS; y++) {
@@ -238,4 +241,118 @@ public class MyPanel extends JPanel {
 		}
 		return y;
 	}
-}
+
+
+public boolean isZero (int arrayPos) { // 
+	return (arrayPos == 0);	
+	}
+
+public void zeroActuation (int col, int row) {
+
+	
+	if (col == 0 && row == 0) {
+		for (int x = col; x <= col+1; x++) {
+			for (int y = row; y <= row+1; y++) {
+				colorArray[x][y] = Color.GRAY;
+				if (mineDetectorArray[x][y] == 0) {
+					zerosCountlistX.add(x);
+					zerosCountlistY.add(y);
+				}
+			}
+		}
+	}
+	else if (col == 8 && row ==0) {
+		for (int x = col-1; x <= col; x++) {
+			for (int y =row; y <= row+1; y++) {
+				colorArray[x][y] = Color.GRAY;
+				if (mineDetectorArray[x][y] == 0) {
+					zerosCountlistX.add(x);
+					zerosCountlistY.add(y);	
+				}
+			}
+		}
+	}
+	else if (col == 0 && row == 8) {
+		for (int x = col; x <= col+1; x++) {
+			for (int y = row-1; y <= row; y++) {
+				colorArray[x][y] = Color.GRAY;
+				if (mineDetectorArray[x][y] == 0) {
+					zerosCountlistX.add(x);
+					zerosCountlistY.add(y);
+				}
+			}
+		}
+	}
+	else if (col == 8 && row == 8) {
+		for (int x = col-1; x <= col; x++) {
+			for (int y = row-1; y <= row; y++) {
+				colorArray[x][y] = Color.GRAY;
+				if (mineDetectorArray[x][y] == 0) {
+					zerosCountlistX.add(x);
+					zerosCountlistY.add(y);
+				}
+			}
+		}
+	}
+	else if (col == 0) {
+		for (int x = col; x <= col+1; x++) {
+			for (int y = row-1; y <= row+1; y++) {
+				colorArray[x][y] = Color.GRAY;
+				if (mineDetectorArray[x][y] == 0) {
+					zerosCountlistX.add(x);
+					zerosCountlistY.add(y);
+				}
+			}
+		}
+	}
+	else if (col == 8) {
+		for (int x = col-1; x <= col; x++) {
+			for (int y = row-1; y <= row+1; y++) {
+				colorArray[x][y] = Color.GRAY;
+				if (mineDetectorArray[x][y] == 0) {
+					zerosCountlistX.add(x);
+					zerosCountlistY.add(y);
+				}
+			}
+		}
+	}
+	else if (row == 0) {
+		for (int x = col-1; x <= col+1; x++) {
+			for (int y = row; y <= row+1; y++) {
+				colorArray[x][y] = Color.GRAY;
+				if (mineDetectorArray[x][y] == 0) {
+					zerosCountlistX.add(x);
+					zerosCountlistY.add(y);
+				}
+			}
+		}
+	}
+	else if (row == 8) {
+		for (int x = col-1; x <= col+1; x++) {
+			for (int y = row-1; y <= row; y++) {
+				colorArray[x][y] = Color.GRAY;
+				if (mineDetectorArray[x][y] == 0) {
+					zerosCountlistX.add(x);
+					zerosCountlistY.add(y);
+				}
+			}
+		}
+	}
+	else {
+		for(int x = col-1; x <= col+1; x++){
+			for (int y =row-1; y <= row+1; y++) {
+				colorArray[x][y] = Color.GRAY;
+				if (mineDetectorArray[x][y] == 0) {
+					zerosCountlistX.add(x);
+					zerosCountlistY.add(y);
+					}
+				}
+			}
+		}
+	
+		}
+	}
+
+
+
+
