@@ -11,8 +11,8 @@ public class Main {
 		MyPanel myPanel = new MyPanel();
 		myFrame.add(myPanel);
 		
-		JLabel label = new JLabel("Click at your own risk...");
-		myPanel.add(label);
+//		JLabel label = new JLabel(""+1+"");
+//		myPanel.add(label);
 
 		MyMouseAdapter myMouseAdapter = new MyMouseAdapter();
 		myFrame.addMouseListener(myMouseAdapter);

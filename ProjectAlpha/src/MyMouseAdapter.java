@@ -22,8 +22,6 @@ public class MyMouseAdapter extends MouseAdapter {
 			}
 			JFrame myFrame = (JFrame) c;
 			MyPanel myPanel = (MyPanel) myFrame.getContentPane().getComponent(0);
-			JLabel myLabel = new JLabel();
-			myPanel.add(myLabel);
 			Insets myInsets = myFrame.getInsets();
 			int x1 = myInsets.left;
 			int y1 = myInsets.top;
@@ -46,8 +44,6 @@ public class MyMouseAdapter extends MouseAdapter {
 			}
 			myFrame = (JFrame) c;
 			myPanel = (MyPanel) myFrame.getContentPane().getComponent(0);
-			myLabel = new JLabel();
-			myPanel.add(myLabel);
 			myInsets = myFrame.getInsets();
 			x1 = myInsets.left;
 			y1 = myInsets.top;
@@ -77,8 +73,6 @@ public class MyMouseAdapter extends MouseAdapter {
 			}
 			JFrame myFrame = (JFrame)c;
 			MyPanel myPanel = (MyPanel) myFrame.getContentPane().getComponent(0);  //Can also loop among components to find MyPanel
-			JLabel myLabel = new JLabel();
-			myPanel.add(myLabel);
 			Insets myInsets = myFrame.getInsets();
 			int x1 = myInsets.left;
 			int y1 = myInsets.top;
@@ -113,9 +107,17 @@ public class MyMouseAdapter extends MouseAdapter {
 									}
 								}
 								myPanel.mineFound = true;
+								JLabel myLabel = new JLabel("Game Over: You lose...");
+								myPanel.add(myLabel);
+								myFrame.setVisible(true);
 							}else if(myPanel.coveredCount > 0){
 									myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = Color.GRAY;
 									myPanel.coveredCount--; // the amount of covered safe panels to uncover
+									if(myPanel.mineDetectorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] > 0){
+										JLabel myLabel = new JLabel("" + myPanel.mineDetectorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] + "");
+										myPanel.add(myLabel);
+										myFrame.setVisible(true);
+									}
 							}else{
 								myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = Color.GRAY;
 								for (int col = 0; col < MyPanel.getTotalColumns(); col++) {   
@@ -125,6 +127,9 @@ public class MyMouseAdapter extends MouseAdapter {
 									}
 								}
 								myPanel.redFlagCount = 0;
+								JLabel myLabel = new JLabel("You win!");
+								myPanel.add(myLabel);
+								myFrame.setVisible(true);
 							}
 							myPanel.repaint();
 						}

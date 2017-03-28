@@ -49,68 +49,23 @@ public class MyPanel extends JPanel {
 				randomY = generator.nextInt(9);
 			}while(mineArray[randomX][randomY] == 1);
 			mineArray[randomX][randomY] = 1;
-//			colorArray[randomX][randomY] = Color.BLACK; //DON'T ERASE: it is for debugging purpose, just comment the line
+			colorArray[randomX][randomY] = Color.BLACK; //DON'T ERASE: it is for debugging purpose, just comment the line
 		}
 		for (int x = 0; x < TOTAL_COLUMNS; x++) {   //gaining the amount of nearby mines of each label
 			for (int y = 0; y < TOTAL_ROWS; y++) {
 				if (mineArray[x][y] == 0){
-				int counter = 0;
-				if (x == 0 && y == 0) {
-					for (int k = x; k <= x+1; k++) {
-						for (int j = y; j <= y+1; j++) {
-							if (mineArray[k][j] == 1){
-							counter++;
-							}
-						}
-					}
-				} 
-				else if(x == 8 && y ==0) {
-					for (int k = x-1; k <= x; k++) {
-						for (int j = y; j <= y+1; j++) {
-							if (mineArray[k][j] == 1){
-							counter++;
-							}
-						}
-					}
-				}
-				else if (x == 0 && y == 8) {
-					for (int k = x; k <= x+1; k++) {
-						for (int j = y-1; j <= y; j++) {
-							if (mineArray[k][j] == 1){
+					int counter = 0;
+					if (x == 0 && y == 0) {
+						for (int k = x; k <= x+1; k++) {
+							for (int j = y; j <= y+1; j++) {
+								if (mineArray[k][j] == 1){
 								counter++;
+								}
 							}
 						}
-					}
-				}
-				else if (x == 8 && y == 8) {
-					for (int k = x-1; k <= x; k++) {
-						for (int j = y-1; j <= y; j++) {
-							if (mineArray[k][j] == 1){
-							counter++;
-							}
-						}
-					}
-				}
-				else if (x == 0) {
-					for (int k = x; k <= x+1; k++) {
-						for (int j = y-1; j <= y+1; j++) {
-							if (mineArray[k][j] == 1){
-							counter++;
-							}
-						}
-					}
-				}
-				else if (x == 8) {
-					for (int k = x-1; k <= x; k++) {
-						for (int j = y-1; j <= y+1; j++) {
-							if (mineArray[k][j] == 1){
-							counter++;
-							}
-						}
-					}
-				}
-					else if (y == 0) {
-						for (int k = x-1; k <= x+1; k++) {
+					} 
+					else if(x == 8 && y ==0) {
+						for (int k = x-1; k <= x; k++) {
 							for (int j = y; j <= y+1; j++) {
 								if (mineArray[k][j] == 1){
 								counter++;
@@ -118,8 +73,17 @@ public class MyPanel extends JPanel {
 							}
 						}
 					}
-					else if (y == 8) {
-						for (int k = x-1; k <= x+1; k++) {
+					else if (x == 0 && y == 8) {
+						for (int k = x; k <= x+1; k++) {
+							for (int j = y-1; j <= y; j++) {
+								if (mineArray[k][j] == 1){
+									counter++;
+								}
+							}
+						}
+					}
+					else if (x == 8 && y == 8) {
+						for (int k = x-1; k <= x; k++) {
 							for (int j = y-1; j <= y; j++) {
 								if (mineArray[k][j] == 1){
 								counter++;
@@ -127,8 +91,8 @@ public class MyPanel extends JPanel {
 							}
 						}
 					}
-					else {
-						for (int k = x-1; k <= x+1; k++) {
+					else if (x == 0) {
+						for (int k = x; k <= x+1; k++) {
 							for (int j = y-1; j <= y+1; j++) {
 								if (mineArray[k][j] == 1){
 								counter++;
@@ -136,7 +100,43 @@ public class MyPanel extends JPanel {
 							}
 						}
 					}
-				mineDetectorArray[x][y] = counter;
+					else if (x == 8) {
+						for (int k = x-1; k <= x; k++) {
+							for (int j = y-1; j <= y+1; j++) {
+								if (mineArray[k][j] == 1){
+								counter++;
+								}
+							}
+						}
+					}
+						else if (y == 0) {
+							for (int k = x-1; k <= x+1; k++) {
+								for (int j = y; j <= y+1; j++) {
+									if (mineArray[k][j] == 1){
+									counter++;
+									}
+								}
+							}
+						}
+						else if (y == 8) {
+							for (int k = x-1; k <= x+1; k++) {
+								for (int j = y-1; j <= y; j++) {
+									if (mineArray[k][j] == 1){
+									counter++;
+									}
+								}
+							}
+						}
+						else {
+							for (int k = x-1; k <= x+1; k++) {
+								for (int j = y-1; j <= y+1; j++) {
+									if (mineArray[k][j] == 1){
+									counter++;
+									}
+								}
+							}
+						}
+					mineDetectorArray[x][y] = counter;
 			} 
 		}
 	}
@@ -175,9 +175,6 @@ public class MyPanel extends JPanel {
 		for (int x = 0; x <= TOTAL_COLUMNS; x++) {
 			g.drawLine(x1 + GRID_X + (x * (INNER_CELL_SIZE + 1)), y1 + GRID_Y, x1 + GRID_X + (x * (INNER_CELL_SIZE + 1)), y1 + GRID_Y + ((INNER_CELL_SIZE + 1) * (TOTAL_ROWS)));
 		}
-
-		//Draw an additional cell at the bottom left
-//		g.drawRect(x1 + GRID_X, y1 + GRID_Y + ((INNER_CELL_SIZE + 1) * (TOTAL_ROWS - 1)), INNER_CELL_SIZE + 1, INNER_CELL_SIZE + 1);
 
 		//Paint cell colors
 		for (int x = 0; x < TOTAL_COLUMNS; x++) {
