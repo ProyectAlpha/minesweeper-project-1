@@ -254,76 +254,48 @@ public void zeroActuation (int col, int row) {
 		for (int x = col; x <= col+1; x++) {
 			for (int y = row; y <= row+1; y++) {
 				colorArray[x][y] = Color.GRAY;
-				if (mineDetectorArray[x][y] == 0) {
-					zerosCountlistX.add(x);
-					zerosCountlistY.add(y);
-				}
 			}
 		}
 	}
 	else if (col == 8 && row ==0) {
 		for (int x = col-1; x <= col; x++) {
 			for (int y =row; y <= row+1; y++) {
-				colorArray[x][y] = Color.GRAY;
-				if (mineDetectorArray[x][y] == 0) {
-					zerosCountlistX.add(x);
-					zerosCountlistY.add(y);	
-				}
+				colorArray[x][y] = Color.GRAY;	
 			}
 		}
 	}
 	else if (col == 0 && row == 8) {
 		for (int x = col; x <= col+1; x++) {
 			for (int y = row-1; y <= row; y++) {
-				colorArray[x][y] = Color.GRAY;
-				if (mineDetectorArray[x][y] == 0) {
-					zerosCountlistX.add(x);
-					zerosCountlistY.add(y);
-				}
+				colorArray[x][y] = Color.GRAY;		
 			}
 		}
 	}
 	else if (col == 8 && row == 8) {
 		for (int x = col-1; x <= col; x++) {
 			for (int y = row-1; y <= row; y++) {
-				colorArray[x][y] = Color.GRAY;
-				if (mineDetectorArray[x][y] == 0) {
-					zerosCountlistX.add(x);
-					zerosCountlistY.add(y);
-				}
+				colorArray[x][y] = Color.GRAY;		
 			}
 		}
 	}
 	else if (col == 0) {
 		for (int x = col; x <= col+1; x++) {
 			for (int y = row-1; y <= row+1; y++) {
-				colorArray[x][y] = Color.GRAY;
-				if (mineDetectorArray[x][y] == 0) {
-					zerosCountlistX.add(x);
-					zerosCountlistY.add(y);
-				}
+				colorArray[x][y] = Color.GRAY;	
 			}
 		}
 	}
 	else if (col == 8) {
 		for (int x = col-1; x <= col; x++) {
 			for (int y = row-1; y <= row+1; y++) {
-				colorArray[x][y] = Color.GRAY;
-				if (mineDetectorArray[x][y] == 0) {
-					zerosCountlistX.add(x);
-					zerosCountlistY.add(y);
-				}
+				colorArray[x][y] = Color.GRAY;				
 			}
 		}
 	}
 	else if (row == 0) {
 		for (int x = col-1; x <= col+1; x++) {
 			for (int y = row; y <= row+1; y++) {
-				colorArray[x][y] = Color.GRAY;
-				if (mineDetectorArray[x][y] == 0) {
-					zerosCountlistX.add(x);
-					zerosCountlistY.add(y);
-				}
+				colorArray[x][y] = Color.GRAY;	
 			}
 		}
 	}
@@ -331,10 +303,6 @@ public void zeroActuation (int col, int row) {
 		for (int x = col-1; x <= col+1; x++) {
 			for (int y = row-1; y <= row; y++) {
 				colorArray[x][y] = Color.GRAY;
-				if (mineDetectorArray[x][y] == 0) {
-					zerosCountlistX.add(x);
-					zerosCountlistY.add(y);
-				}
 			}
 		}
 	}
@@ -342,16 +310,71 @@ public void zeroActuation (int col, int row) {
 		for(int x = col-1; x <= col+1; x++){
 			for (int y =row-1; y <= row+1; y++) {
 				colorArray[x][y] = Color.GRAY;
-				if (mineDetectorArray[x][y] == 0) {
-					zerosCountlistX.add(x);
-					zerosCountlistY.add(y);
-					}
 				}
 			}
 		}
 	
 		}
-	}
+//
+//public void zerosMovement (int col, int row) {
+//	int limit = 0;
+//	for(y = row; y <= 8-limit; y++){
+//		for(x = col; x <= 8-limit; x++){
+//			if (mineDetectorArray[x][y]==0){ 
+////				zerosCountlistX.add(x);
+////				zerosCountlistY.add(y);
+//				zeroActuation(x,y);
+//				} 
+//				else { limit =8;
+//				}
+//			if (mineDetectorArray[x][y]!=0){
+//				break;
+//			}
+//			}
+//		for(y = row; y >= 0; y--){
+//			for(x = col; x >= 0; x--){
+//				if (isZero(mineDetectorArray[x][y])){ 
+////					zerosCountlistX.add(x);
+////					zerosCountlistY.add(y);
+//					zeroActuation(x,y);
+//					} 
+//					else {
+//						break;
+//					}
+//				}
+//			}
+//		for(y = row; y <= 8; y++){
+//			for(x = col; x >= 0; x--){
+//				if (isZero(mineDetectorArray[x][y])){ 
+////					zerosCountlistX.add(x);
+////					zerosCountlistY.add(y);
+//					zeroActuation(x,y);
+//					} 
+//					else {
+//						break;
+//					}
+//				}
+//			}
+//		for(y = row; y >= 0; y--){
+//			for(x = col; x <= 8; x++){
+//				if (isZero(mineDetectorArray[x][y])){ 
+////					zerosCountlistX.add(x);
+////					zerosCountlistY.add(y);
+//					zeroActuation(x,y);
+//					} 
+//					else {
+//						break;
+//					}
+//				}
+//			}
+//		}
+//	for (x=0; x<= zerosCountlistX.size(); x++){
+//		zeroActuation(zerosCountlistX.get(x),zerosCountlistY.get(x));
+//		
+//		}
+//	}
+}
+
 
 
 

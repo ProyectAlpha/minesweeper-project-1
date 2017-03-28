@@ -118,7 +118,7 @@ public class MyMouseAdapter extends MouseAdapter {
 									myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = Color.GRAY;
 									myPanel.coveredCount--; // the amount of covered safe panels to uncover
 									
-									if (myPanel.isZero(myPanel.mineDetectorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY])) { //zeros detection attemp
+									if (myPanel.isZero(myPanel.mineDetectorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY]) == true) { //zeros detection attemp
 										myPanel.zeroActuation(myPanel.mouseDownGridX, myPanel.mouseDownGridY);
 //										for (int num = 0; num <= myPanel.zerosCountlistX.size(); num++) {
 //											myPanel.zeroActuation(myPanel.zerosCountlistX.get(num),myPanel.zerosCountlistY.get(num));
