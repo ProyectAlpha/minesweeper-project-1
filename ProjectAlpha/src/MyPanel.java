@@ -20,6 +20,7 @@ public class MyPanel extends JPanel {
 	public Color[][] colorArray = new Color[TOTAL_COLUMNS][TOTAL_ROWS]; //array to control colors
 	public int[][] mineArray = new int[TOTAL_COLUMNS][TOTAL_ROWS]; //array to know where are the mines
 	public int[][] mineDetectorArray = new int[TOTAL_COLUMNS][TOTAL_ROWS]; //array to detect nearby mines
+	public int[][] flaggedArray = new int[TOTAL_COLUMNS][TOTAL_ROWS];
 	public int redFlagCount = TOTAL_MINES; 
 	public int coveredCount = TOTAL_COLUMNS * TOTAL_ROWS - TOTAL_MINES - 1; //the amount of panels that the player has to uncover
 	public boolean mineFound = false; //it is use to know when a mine exploded
@@ -39,6 +40,7 @@ public class MyPanel extends JPanel {
 				colorArray[x][y] = Color.WHITE;
 				mineArray[x][y] = 0;
 				mineDetectorArray[x][y] = 0;
+				flaggedArray[x][y] = 0;
 			}
 		}
 		for (int i = 0; i < TOTAL_MINES; i++) { //Mine generator
@@ -150,6 +152,88 @@ public class MyPanel extends JPanel {
 	public static int getTotalMines() {
 		return TOTAL_MINES;
 	}
+	public static int getGridX() {
+		return GRID_X;
+	}
+	public static int getGridY() {
+		return GRID_Y;
+	}
+	public static int getInnerCellSize() {
+		return INNER_CELL_SIZE;
+	}
+	
+	public boolean isZero (int arrayPos) { // 
+		return (arrayPos == 0);	
+		}
+
+	public void zeroActuation (int col, int row) {
+
+		
+		if (col == 0 && row == 0) {
+			for (int x = col; x <= col+1; x++) {
+				for (int y = row; y <= row+1; y++) {
+					colorArray[x][y] = Color.GRAY;
+				}
+			}
+		}
+		else if (col == 8 && row ==0) {
+			for (int x = col-1; x <= col; x++) {
+				for (int y =row; y <= row+1; y++) {
+					colorArray[x][y] = Color.GRAY;	
+				}
+			}
+		}
+		else if (col == 0 && row == 8) {
+			for (int x = col; x <= col+1; x++) {
+				for (int y = row-1; y <= row; y++) {
+					colorArray[x][y] = Color.GRAY;		
+				}
+			}
+		}
+		else if (col == 8 && row == 8) {
+			for (int x = col-1; x <= col; x++) {
+				for (int y = row-1; y <= row; y++) {
+					colorArray[x][y] = Color.GRAY;		
+				}
+			}
+		}
+		else if (col == 0) {
+			for (int x = col; x <= col+1; x++) {
+				for (int y = row-1; y <= row+1; y++) {
+					colorArray[x][y] = Color.GRAY;	
+				}
+			}
+		}
+		else if (col == 8) {
+			for (int x = col-1; x <= col; x++) {
+				for (int y = row-1; y <= row+1; y++) {
+					colorArray[x][y] = Color.GRAY;				
+				}
+			}
+		}
+		else if (row == 0) {
+			for (int x = col-1; x <= col+1; x++) {
+				for (int y = row; y <= row+1; y++) {
+					colorArray[x][y] = Color.GRAY;	
+				}
+			}
+		}
+		else if (row == 8) {
+			for (int x = col-1; x <= col+1; x++) {
+				for (int y = row-1; y <= row; y++) {
+					colorArray[x][y] = Color.GRAY;
+				}
+			}
+		}
+		else {
+			for(int x = col-1; x <= col+1; x++){
+				for (int y =row-1; y <= row+1; y++) {
+					colorArray[x][y] = Color.GRAY;
+					}
+				}
+			}
+		
+			}
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 
@@ -182,6 +266,15 @@ public class MyPanel extends JPanel {
 					Color c = colorArray[x][y];
 					g.setColor(c);
 					g.fillRect(x1 + GRID_X + (x * (INNER_CELL_SIZE + 1)) + 1, y1 + GRID_Y + (y * (INNER_CELL_SIZE + 1)) + 1, INNER_CELL_SIZE, INNER_CELL_SIZE);
+					if(mineArray[x][y] == 0 && mineDetectorArray[x][y] != 0){
+						if(flaggedArray[x][y] == 1){
+							g.setColor(Color.RED);
+							g.drawString("" + mineDetectorArray[x][y] + "", x1 + GRID_X + 10 + (x * (INNER_CELL_SIZE + 1)) + 1, y1 + GRID_Y + 20 + (y * (INNER_CELL_SIZE + 1)) + 1);
+						}else{
+							g.setColor(Color.WHITE);
+							g.drawString("" + mineDetectorArray[x][y] + "", x1 + GRID_X + 10 + (x * (INNER_CELL_SIZE + 1)) + 1, y1 + GRID_Y + 20 + (y * (INNER_CELL_SIZE + 1)) + 1);
+						}
+					}
 			}
 		}
 	}

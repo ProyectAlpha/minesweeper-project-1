@@ -3,13 +3,11 @@ import java.awt.Component;
 import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Random;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 public class MyMouseAdapter extends MouseAdapter {
-//	private Random generator = new Random();
 	public void mousePressed(MouseEvent e) {
 		switch (e.getButton()) {
 		case 1:		//Left mouse button
@@ -107,18 +105,18 @@ public class MyMouseAdapter extends MouseAdapter {
 									}
 								}
 								myPanel.mineFound = true;
-								JLabel myLabel = new JLabel("Game Over: You lose...");
-								myPanel.add(myLabel);
+								JLabel myLabel1 = new JLabel("Game Over: You lose...");
+								myLabel1.setOpaque(true);
+								myPanel.add(myLabel1);
 								myFrame.setVisible(true);
 							}else if(myPanel.coveredCount > 0){
 									myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = Color.GRAY;
 									myPanel.coveredCount--; // the amount of covered safe panels to uncover
-									if(myPanel.mineDetectorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] > 0){
-										JLabel myLabel = new JLabel("" + myPanel.mineDetectorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] + "");
-										myPanel.add(myLabel);
-										myFrame.setVisible(true);
+									
+									if (myPanel.isZero(myPanel.mineDetectorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY])) {
+										myPanel.zeroActuation(myPanel.mouseDownGridX, myPanel.mouseDownGridY);
 									}
-							}else{
+							}else{ 
 								myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = Color.GRAY;
 								for (int col = 0; col < MyPanel.getTotalColumns(); col++) {   
 									for (int row = 0; row < MyPanel.getTotalRows(); row++) {
@@ -127,8 +125,9 @@ public class MyMouseAdapter extends MouseAdapter {
 									}
 								}
 								myPanel.redFlagCount = 0;
-								JLabel myLabel = new JLabel("You win!");
-								myPanel.add(myLabel);
+								JLabel myLabel2 = new JLabel("You win!");
+								myLabel2.setOpaque(true);
+								myPanel.add(myLabel2);
 								myFrame.setVisible(true);
 							}
 							myPanel.repaint();
@@ -176,9 +175,11 @@ public class MyMouseAdapter extends MouseAdapter {
 							//do nothing
 						}else if(myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY].equals(Color.RED)){
 								myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = Color.WHITE;
+								myPanel.flaggedArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = 0;
 								myPanel.redFlagCount++;
 						}else{ 
 								myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = Color.RED;
+								myPanel.flaggedArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = 1;
 								myPanel.redFlagCount--;
 							}
 						myPanel.repaint();
