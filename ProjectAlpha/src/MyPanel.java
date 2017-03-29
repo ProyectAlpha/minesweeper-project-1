@@ -54,7 +54,7 @@ public class MyPanel extends JPanel {
 				randomY = generator.nextInt(9);
 			}while(mineArray[randomX][randomY] == 1);
 			mineArray[randomX][randomY] = 1;
-			colorArray[randomX][randomY] = Color.BLACK; //DON'T ERASE: it is for debugging purpose, just comment the line
+//			colorArray[randomX][randomY] = Color.BLACK; //DON'T ERASE: it is for debugging purpose, just comment the line
 		}
 		for (int x = 0; x < TOTAL_COLUMNS; x++) {   //gaining the amount of nearby mines of each label
 			for (int y = 0; y < TOTAL_ROWS; y++) {
