@@ -95,7 +95,7 @@ public class MyMouseAdapter extends MouseAdapter {
 					}else {
 						if (myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY].equals(Color.RED) || myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY].equals(Color.GRAY)){
 						//Released the mouse button on the same cell where it was pressed
-						//do nothing	
+						
 						}else if (!myPanel.mineFound){ //asking if a mine exploded or wins
 							if(myPanel.mineArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] == 1){ 
 								for (int col = 0; col < MyPanel.getTotalColumns(); col++) {   //a mine exploded: showing the rest of mines
@@ -112,11 +112,16 @@ public class MyMouseAdapter extends MouseAdapter {
 							}else if(myPanel.coveredCount > 0){
 									myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = Color.GRAY;
 									myPanel.coveredCount--; // the amount of covered safe panels to uncover
+			
 									
-									if (myPanel.isZero(myPanel.mineDetectorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY])) {
+									if (myPanel.isZero(myPanel.mineDetectorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY]) == true) { //zeros detection attemp
 										myPanel.zeroActuation(myPanel.mouseDownGridX, myPanel.mouseDownGridY);
+//										for (int num = 0; num <= myPanel.zerosCountlistX.size(); num++) {
+//											myPanel.zeroActuation(myPanel.zerosCountlistX.get(num),myPanel.zerosCountlistY.get(num));
+//										}
 									}
-							}else{ 
+							}
+							else{
 								myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = Color.GRAY;
 								for (int col = 0; col < MyPanel.getTotalColumns(); col++) {   
 									for (int row = 0; row < MyPanel.getTotalRows(); row++) {
